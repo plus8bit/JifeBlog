@@ -59,6 +59,9 @@ get '/details/:post_id' do
   results = @db.execute 'select * from Posts where id = ?', [post_id]
   # choose this one post in variable @row
   @row = results[0]
+
+  # Choice comment for post
+  @comments = @db.execute 'select * from Comments where post_id = ? order by id', [post_id]
 	
   # return view details.erb
   erb :details
