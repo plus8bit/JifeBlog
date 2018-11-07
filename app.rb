@@ -11,7 +11,7 @@ end
 
 # calls "before" every time when page reload
 before do
-	
+
 	init_db
 end
 
@@ -26,7 +26,7 @@ end
 get '/' do
 	# select a list of posts from the database
 	@results = @db.execute 'select * from Posts order by id desc'
-	
+
 	erb :index	
 end
 
@@ -46,5 +46,5 @@ post '/new' do
 	# Safe data to db
 	@db.execute 'insert into Posts (content, created_date) values (?, datetime())', [content]
 
-	erb "You typed: #{content}"
+	redirect to '/'
   end
