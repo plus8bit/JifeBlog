@@ -33,5 +33,11 @@ end
 post '/new' do
 	content = params[:content]
 
+	# Add parametr validation
+	if content.size < 1
+		@error = "Type post text!"
+		return erb :new
+	end
+
 	erb "You typer #{content}"
   end
