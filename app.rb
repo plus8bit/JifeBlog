@@ -19,7 +19,8 @@ configure do
 	# Initialization bd
 	init_db
 	# Create bd if table not exists
-	@db.execute 'CREATE TABLE IF NOT EXISTS Posts (id INTEGER PRIMARY KEY AUTOINCREMENT, created_date DATE, content TEXT);'
+	@db.execute 'CREATE TABLE IF NOT EXISTS "Posts" ("id" INTEGER PRIMARY KEY AUTOINCREMENT, "created_date" DATE, "content" TEXT);'
+	
 end
 
 get '/' do
@@ -39,5 +40,7 @@ post '/new' do
 		return erb :new
 	end
 
-	erb "You typer #{content}"
+	@db.execute 'insert into Posts (content, created_date) values (?, datetime())', [content]
+
+	erb "You typed: #{content}"
   end
